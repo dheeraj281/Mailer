@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block content %}
+<div class = "container-fluid" style="padding: 0% 0%;">
+        <div class="container welcome-banner">
+        <p class="welcome-text" >Welcome {{current_user.firstname}}! </p>
+        </div>
+        <div class="container">
+        <h5 style="margin-top: 5%; margin-bottom:2%;"> Your Active Campaigns</h5>
+         <div class="row">
+             {% for item in active_campaigns %}
+             <div class="col-sm-3">
+                 <div class="card bg-light mb-3 shadow p-3" >
+                     <div class="card-body" >
+                         <b>{{ item.name }}</b>
+                         {% if item.last_run_time == None %}
+                         <p class="card-text"> <small class="text-muted">Yet to run for the first time.</small></p>
+                         {%else %}
+                         <p class="card-text"><small class="text-muted">Last run at {{ item.last_run_time }}</small></p>
+                         {% endif %}
+                     </div>
+                 </div>
+             </div>
+             {% endfor %}
+         </div>
+            <hr class=" mb-3"/>
+<!--        favorite -->
+        <h5 style="margin-top: 5%; margin-bottom:2%;"> Your Favorite Templates</h5>
+         <div class="row">
+             {% for item in templates %}
+             <div class="col-sm-3">
+                 <div class="card bg-light mb-3 shadow p-3 h-100" >
+                     <div class="card-body" >
+                         <b>{{ item.template_name }}</b>
+                         <p class="card-text"><small class="text-muted"> Subject: {{ item.subject }}</small></p>
+                     </div>
+                 </div>
+             </div>
+             {% endfor %}
+         </div>
+         <hr/>
+<!--        Logs section -->
+
+            <h5 style="margin-top: 5%; margin-bottom:2%;"> Recent Execution Logs </h5>
+            <table class="table logs-table">
+              <thead>
+                <tr>
+
+                  <th scope="col">Campaign</th>
+                  <th scope="col">Start at</th>
+                  <th scope="col">End at</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+            <tbody id="myTable">
+            {% for entry in log_entires %}
+            {% if  entry.status == "Success" %}
+            <tr style="background-color:#bfe7ac;">
+
+              <td>{{ entry.campaign }}</td>
+              <td>{{ entry.start_time }}</td>
+              <td>{{ entry.end_time }}</td>
+              <td>{{ entry.status }}</td>
+             </tr>
+            {% else %}
+              <tr style="background-color:#f65858;">
+
+              <td>{{ entry.campaign }}</td>
+              <td>{{ entry.start_time }}</td>
+              <td>{{ entry.end_time }}</td>
+              <td>{{ entry.status }}</td>
+             </tr>
+            {% endif %}
+            {% endfor %}
+            </tbody>
+                <a href="{{ url_for('base.job_logs')}}"><button type="button" class="btn btn-info">View full logs</button></a>
+        </table>
+
+        </div>
+</div>
+
+{% endblock content %}

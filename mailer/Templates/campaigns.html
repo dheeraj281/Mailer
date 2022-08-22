@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container-fluid list-page-header">
+    <div class="container list-page-header">
+        <div class="row">
+            <div class="col-lg-10 page-title">
+                <p class="page-title-text"> {{ page_title }}</p>
+            </div>
+            <div class="col-lg-2 button-area">
+                <button class="btn btn-primary list-page-hdr-btn" type="button" data-bs-toggle="modal" data-bs-target="#addcampaign" >+ {{ page_title }}</button>
+                </div>
+            </div>
+        </div>
+         {% if cmp_list|length == 0 %}
+        <div class="items-retrieved">
+            <div class="list-table-header">
+                <p class="item-msg"> No items. Add a new {{ page_title }}</p>
+            </div>
+        </div>
+            {% else %}
+         <div class="items-retrieved">
+        <div class="row">
+            {% for camp in cmp_list %}
+          <div class="col-sm-3">
+            <div class="card" style="margin-bottom:10%">
+              <div class="card-body">
+                <h5 class="card-title">{{ camp.name}}</h5>
+                <p class="card-text"> Mailing list: {{ camp._mailing_list }} </p>
+                  <p class="card-text"> Template used: {{ camp.Email_template }} </p>
+                  <p class="card-text"> Status: {{ camp.status }} </p>
+                   <p class="card-text"> Schedule: {{ camp.schedule }} </p>
+                  {% if camp.status == "Active" %}
+               <a href="{{ url_for('campaigns.change_status',camp_id=camp.id) }}" class="btn btn-primary">De-Activate</a>
+                  {% else %}
+                  <a href="{{ url_for('campaigns.change_status',camp_id=camp.id) }}" class="btn btn-primary">Activate</a>
+                  {% endif %}
+               <a href="{{ url_for('campaigns.delete_campaign',camp_id=camp.id)}}" class="btn btn-danger">Delete</a>
+              </div>
+                <div class="card-footer">
+                    <p class="card-text"><small class="text-muted">Created on: {{camp.created}}</small></p>
+                </div>
+            </div>
+          </div>
+            {% endfor %}
+        </div>
+         </div>
+        {% endif %}
+
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade " id="addcampaign" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Add a new campaign</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+         <form id="campaignform" method="post" style="text-align: right;" action="{{ url_for('campaigns.create_campaign') }}">
+             <div class="form-floating mb-3">
+                  <input type="text" name="camp_name" class="form-control" id="template_name">
+                  <label class = "form-label" for="template_name">Template Name</label>
+               </div>
+              <div class="form-floating mb-3">
+                  <select class="form-select" name= "malinglist" aria-label="Default select example">
+                      <option selected>Select a mailing list</option>
+                      {% for item in mailing_list %}
+                      <option value={{item.id}}>{{item.name}}</option>
+                      {% endfor %}
+                    </select>
+               </div>
+             <div class="form-floating mb-3">
+              <select class="form-select" name="template" aria-label="Default select example">
+                      <option selected>Select a Email template</option>
+                      {% for item in templates %}
+                      <option value={{item.id}}>{{item.template_name}}</option>
+                      {% endfor %}
+                    </select>
+             </div>
+             <div class="form-floating mb-3">
+                  <input type="text" name="crontab_schedule" class="form-control" id="crontab_schedule">
+                  <label class = "form-label" for="crontab">crontab Schedule</label>
+               </div>
+         </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" form="campaignform">Submit</button>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

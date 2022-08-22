@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container-fluid list-page-header">
+    <div class="container list-page-header">
+         <div class="row">
+            <div class="col-lg-10 page-title">
+                <p class="page-title-text"> {{ page_title }}</p>
+            </div>
+            <div class="col-lg-2 button-area">
+                  <button class="btn btn-primary list-page-hdr-btn" type="button" data-bs-toggle="modal" data-bs-target="#addemailTemplate" >+ {{ page_title }}</button>
+            </div>
+        </div>
+         {% for message in get_flashed_messages() %}
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+               {{ message }}
+              <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+        {% endfor %}
+        <div class="container-fluid" style="padding: 0 10%;">
+        {% for email in templates %}
+            <div class="card email-card">
+              <div class="card-header" style="padding-right:0%;">
+                  <div class="container-fluid" style="padding-right:0%;">
+                      <div class="row" style="padding-right:0%;">
+                          <div class="col-sm-11">{{ email.template_name }}</div>
+                          {% if email.is_favorite == True %}
+                          <div class="col-sm-1"><a  href="{{ url_for('base.favorite_template', template_id=email.id) }}"> <i class=" fa fa-light fa-star" style="font-weight: 900; cursor:pointer;"></i></a></div>
+                          {% else %}
+                          <div class="col-sm-1"><a  href="{{ url_for('base.favorite_template', template_id=email.id) }}"> <i class=" fa fa-light fa-star" style="font-weight: 100; cursor:pointer;"></i></a></div>
+                          {% endif %}
+                      </div>
+                   </div>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Subject: {{ email.subject }}</h5>
+                <p class="card-text">Body: {{ email.email_body }} </p>
+              </div>
+             <div class="card-footer" style=" text-align: right;">
+                 <a href="{{url_for('base.delete_template',template_id=email.id)}}"><button type="button" class="btn btn-outline-danger">Delete</button></a>
+             </div>
+            </div>
+       {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade " id="addemailTemplate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Add a Email Template</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+         <form id="templateform" method="post" style="text-align: right;" action="{{ url_for('base.email_template') }}">
+             <div class="form-floating mb-3">
+                  <input type="text" name="template_name" class="form-control" id="template_name">
+                  <label class = "form-label" for="template_name">Template Name</label>
+               </div>
+              <div class="form-floating mb-3">
+                  <input type="text" name="subject" class="form-control" id="subject">
+                  <label class = "form-label" for="subject">Subject</label>
+               </div>
+             <div class="form-floating mb-3">
+              <textarea class="form-control z-depth-1" id="emailbody" rows="3" name="emailbody" placeholder="Write something here..."></textarea>
+               <label class = "form-label" for="emailbody">Your Email Body goes here ....</label>
+             </div>
+         </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" form="templateform">Submit</button>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

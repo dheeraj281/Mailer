@@ -1,0 +1,42 @@
+version: '3'
+services:
+  redis:
+    image: redis:latest
+    container_name: redis
+    env_file:
+      - .env
+    ports:
+      - "6379:6379"
+
+  redisinsight:
+    image: redislabs/redisinsight:latest
+    ports:
+      - '8001:8001'
+
+  db:
+    image: mysql:8
+    container_name: flask-backend-db
+    environment:
+      MYSQL_ROOT_PASSWORD: flask-db
+      MYSQL_PASSWORD: flask-db
+    ports:
+        - "3306:3306"
+    volumes:
+      - my-db:/var/lib/mysql
+
+  app:
+    container_name: app
+    depends_on:
+      - db
+    build: .
+    volumes:
+      - .:/app
+    env_file:
+      - .flaskenv
+    ports:
+      - '8088:8088'
+
+
+# Names our volume
+volumes:
+  my-db:

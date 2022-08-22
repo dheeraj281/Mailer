@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container-fluid list-page-header">
+    <div class="container list-page-header">
+        <div class="row">
+            <div class="col-lg-9 page-title">
+                <p class="page-title-text"> {{ page_title }}</p>
+            </div>
+            <div class="col-lg-3 button-area">
+               <div class="d-grid gap-2 d-md-block">
+                  <button class="btn btn-primary list-page-hdr-btn" type="button" onclick="show_checkbox()">Select</button>
+                  <button class="btn btn-primary list-page-hdr-btn" type="button" data-bs-toggle="modal" data-bs-target="#addMailinglist" >+ {{ page_title }}</button>
+                </div>
+            </div>
+        </div>
+         {% for message in get_flashed_messages() %}
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+               {{ message }}
+              <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+        {% endfor %}
+        <div class="items-retrieved">
+            <div class="list-table-header">
+                {% if mailing_list|length == 0 %}
+                <p class="item-msg"> No items. Add a new {{ page_title }}</p>
+                {% else %}
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <p class="item-msg">Name</p>
+                        </div>
+                        <div class="col-lg-2">
+                            <p class="item-msg">No. of Recipients</p>
+                        </div>
+                    </div>
+                {% endif%}
+            </div>
+            <div class="list-container">
+                <form method="post" action="{{ url_for('base.delete_mailing_list') }}">
+                    <ul>
+                        {% for item in mailing_list %}
+                        <li class="list-item">
+                            <div class="row">
+                                <div class="col-lg-10">
+                                    <input class="list-checkbox hide" type="checkbox" id="{{item.id}}" name="{{item.id}}" value="{{item.name}}">
+                                    <label onclick="location.href='{{ url_for('base.reciepents', mailing_list_id=item.id)}}';" style="cursor: pointer;" class="item-msg" for={{item.id}}> {{item.name}}</label><br>
+                                </div>
+                                <div class="col-lg-2">
+                                    <p class="item-msg">{{ item.recipients|length }}</p>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="d-grid gap-2 d-md-block">
+                        <button type="submit" class="hide delete-list-btn btn btn-danger btn-block btn-lg mb-4">
+                         Delete
+                        </button>
+                        <button class="hide delete-list-btn btn btn-primary btn-block btn-lg mb-4" onclick="hide_checkbox()">
+                         Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade " id="addMailinglist" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" >
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Add a mailing list</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+         <form id="mailingListForm" method="post" style="text-align: right;" action="{{ url_for('base.mailing_list') }}">
+             <div class="form-floating mb-3">
+                  <input type="text" name="mailing_list_name" class="form-control" id="mailing_list_name">
+                  <label class = "form-label" for="mailing_list_name">Name</label>
+               </div>
+         </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" form="mailingListForm">Submit</button>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock content %}

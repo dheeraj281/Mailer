@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container-fluid ">
+    <div class="container" style="padding-top:5%">
+    <input class="form-control" id="myInput" type="text" placeholder="Search..">
+    <br>
+        <table class="table logs-table">
+              <thead>
+                <tr>
+
+                  <th scope="col">Campaign</th>
+                  <th scope="col">Start at</th>
+                  <th scope="col">End at</th>
+                  <th scope="col">Status</th>
+                </tr>
+              </thead>
+            <tbody id="myTable">
+            {% for entry in log_entires %}
+            {% if  entry.status == "Success" %}
+            <tr style="background-color:#bfe7ac;">
+
+              <td>{{ entry.campaign }}</td>
+              <td>{{ entry.start_time }}</td>
+              <td>{{ entry.end_time }}</td>
+              <td>{{ entry.status }}</td>
+             </tr>
+            {% else %}
+              <tr style="background-color:#f65858;">
+
+              <td>{{ entry.campaign }}</td>
+              <td>{{ entry.start_time }}</td>
+              <td>{{ entry.end_time }}</td>
+              <td>{{ entry.status }}</td>
+             </tr>
+            {% endif %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}

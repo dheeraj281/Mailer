@@ -1,0 +1,151 @@
+html,body {
+  margin: 0;
+  height: 100%;
+  overflow: auto;
+  }
+::-webkit-scrollbar {
+
+     width: 0px;
+}
+.form-label{
+    float: left;
+    text-align: left;
+    color: #696969;
+}
+.navbar-brand{
+    font-family: fantasy;
+    font-size: 2rem;
+    margin: 0 2%;
+    font-weight: 500;
+}
+
+.right-aligned-nav{
+  margin-left: 400%;
+}
+.annotation{
+color: white;
+}
+.navbar-container{
+padding-right:2%;
+padding-left:2%;
+margin-right:auto;
+margin-left:auto;
+max-width: 100%;
+}
+
+.navbar-row-container{
+padding-right:0;
+padding-left:0;
+margin-right:auto;
+margin-left:auto;
+max-width: 100%;
+}
+.welcome-banner{
+   background-color: #dbc845;
+    height: 50px;
+    padding-top: 10px;
+    padding-left: 5%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+.welcome-text{
+    font-weight: 500;
+    font-size: 1.3rem;
+}
+ #wrapper
+    {
+      position:relative;
+      min-height:100%; /* in case if content is smaller than window size then footer will remain at bottom because of window this */
+      padding-bottom:40px;/* same as height of footer */
+    }
+#footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background:#0c0;
+      height: 70px;
+      line-height:40px;
+
+      }
+
+.page-title-text{
+font-weight: 900;
+    font-size: 1.2rem;
+    font-family: sans-serif;
+}
+.list-page-hdr-btn{
+    font-size: 1rem;
+    font-weight: 600;
+    margin-right: 5%;
+    font-family: sans-serif;
+}
+.list-page-header{
+padding-right:1%;
+padding-left:1%;
+margin-right:auto;
+margin-left:auto;
+max-width: 100%;
+padding-top: 1%;
+}
+
+.list-table-header{
+    background-color: lightgrey;
+    padding: 10px 50px;
+
+}
+.items-retrieved{
+padding: 5%;
+}
+.item-msg{
+ margin-bottom: 0;
+ font-family: sans-serif;
+ }
+
+.list-item{
+list-style: none;
+border-bottom: 1px solid #ddd;
+padding: 8px 16px;
+}
+.hide{
+display:none;
+}
+
+
+.list-item {
+  text-align:left;
+}
+
+.list-item input{
+  margin: 0px 0px 0px 0px;
+  width:2%
+}
+
+.list-item label{
+  margin: 0% 3%
+}
+.delete-list-btn{
+margin-left: 2%;
+}
+
+
+.email-card{
+    margin: 6% 0%;
+}
+
+.logs-table{
+border-collapse: separate;
+border-spacing: 0 5px;
+margin-bottom: 50px;
+}
+
+hr{
+border-top: 2px solid;
+max-width: 50%;
+margin: 3% auto!important;
+}
+.alert{
+max-width: 50%;
+margin: auto;
+}
+    /* text-align: center; */

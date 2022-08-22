@@ -1,0 +1,72 @@
+
+html,body {
+  margin: 0;
+  height: 100%;
+  overflow:hidden;
+}
+body {
+  min-height: 100%;
+}
+::-webkit-scrollbar {
+
+     width: 0px;
+}
+
+.login-card{
+max-width: 50%;
+max-height: 600px;
+margin-left: 25%!important;
+margin-top: -150px;
+}
+.form-label{
+    float: left;
+    text-align: left;
+    color: #696969;
+}
+bg-image{
+height: 400px;
+}
+.text-block-login{
+margin: 5% 0;
+}
+.text-block h1{
+    color: white;
+    font-family: fantasy;
+    font-weight: 500;
+    font-size: 4rem;
+}
+
+.text-block p{
+    color: white;
+    font-family: fantasy;
+    font-size: 1.4rem;
+
+}
+
+.bg-container {
+  width:100%;
+  height:100%;
+  border:5px solid;
+
+}
+.form-center {
+  background: white;
+  width: 40%;
+  margin-left: 30%;
+  text-align: center;
+  padding: 2% 5%;
+  border: 0;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+}
+
+.login-btn{
+    padding: 10px 20px;
+    font-size: 20px;
+    border-radius: 10px;
+    width: 100%;
+    font-weight: bold;
+    transition: all 0.2s;
+    font-family: fantasy;
+}
+
